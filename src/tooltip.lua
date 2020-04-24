@@ -71,8 +71,8 @@ function Tooltip:draw(x, y, selectedItem, parent)
   local textWidth = 100
 
   local item = parent == "shopping" and selectedItem.item or selectedItem
-    
-  local lineHeight = love.graphics.getFont():getHeight("line height")
+  -- getHeight() has no parameters
+  local lineHeight = love.graphics.getFont():getHeight()
 
   local _, descriptionWrapTable = love.graphics.getFont():getWrap(item.description, textWidth)
   local descriptionWrap = table.getn(descriptionWrapTable)

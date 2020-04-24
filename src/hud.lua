@@ -27,12 +27,12 @@ function HUD.new(level)
   hud.sheet = level.player.character:sheet()
   hud.character_quad = love.graphics.newQuad(0, character.offset or 5, 48, 34, hud.sheet:getWidth(), hud.sheet:getHeight())
 
-  hud.character_stencil = function( x, y )
-    love.graphics.circle( 'fill', x + 31, y + 31, 21 )
+  hud.character_stencil = function()
+    love.graphics.circle( 'fill', hud.x + 31, hud.y + 31, 21 )
   end
 
-  hud.energy_stencil = function( x, y )
-    love.graphics.rectangle( 'fill', x + 50, y + 27, 59, 9 )
+  hud.energy_stencil = function()
+    love.graphics.rectangle( 'fill', hud.x + 50, hud.y + 27, 59, 9 )
   end
 
     hud.saving = false
@@ -74,9 +74,11 @@ function HUD:draw( player )
 
   self.x, self.y = camera.x + 10, camera.y + 10
 
+  love.graphics.setStencilTest( )
   love.graphics.setColor( 255, 255, 255, 255 )
   love.graphics.draw( chevron, self.x, self.y)
-  --love.graphics.stencil(function() self.energy_stencil(self.x, self.y) end)--doesn't pass arguments so is essentially useless
+  love.graphics.stencil( self.energy_stencil )
+  love.graphics.setStencilTest( "greater", 0 )
   love.graphics.setColor(
     math.min(utils.map(player.health, player.max_health, player.max_health / 2 + 1, 0, 255 ), 255 ), -- green to yellow
     math.min(utils.map(player.health, player.max_health / 2, 0, 255, 0), 255), -- yellow to red
@@ -98,6 +100,7 @@ function HUD:draw( player )
   else
     love.graphics.draw(self.sheet, self.character_quad, self.x + 7, self.y + 17)
   end
+  love.graphics.setStencilTest()
   love.graphics.draw(lens, self.x, self.y)
   love.graphics.setColor( 0, 0, 0, 255 )
   love.graphics.print(player.money, self.x + 69, self.y + 41,0,0.5,0.5)

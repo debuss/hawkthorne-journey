@@ -819,6 +819,9 @@ function Player:draw()
 
   if self.stencil then
     love.graphics.stencil( self.stencil )
+    love.graphics.setStencilTest( "greater", 0 )
+  else
+    love.graphics.setStencilTest( )
   end
 
   if self.character.warpin then
@@ -869,6 +872,7 @@ function Player:draw()
 
   love.graphics.setColor( 255, 255, 255, 255 )
 
+  love.graphics.setStencilTest()
 end
 
 -- Modifies the affection level of an npc toward the player

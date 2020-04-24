@@ -36,10 +36,10 @@ function CharacterStrip.new(r, g, b)
   new.color1 = { r = r, g = g, b = b }
   new.color2 = { r = 220-r, g = 220-g, b = 220-b }
 
-  new.stencilFunc = function( this )
-    love.graphics.rectangle('fill', this.x - ( this.flip and 0 or (window.width * 0.5) ), this.y, (window.width * 0.5), stripSize)
-    love.graphics.rectangle('fill', this.x - ( this.flip and 0 or stripSize ), this.y + stripSize,
-      stripSize, math.max(moveSize * this.ratio - stripSize, 0))
+  new.stencilFunc = function()
+    love.graphics.rectangle('fill', new.x - ( new.flip and 0 or (window.width * 0.5) ), new.y, (window.width * 0.5), stripSize)
+    love.graphics.rectangle('fill', new.x - ( new.flip and 0 or stripSize ), new.y + stripSize,
+      stripSize, math.max(moveSize * new.ratio - stripSize, 0))
   end
 
   return new
@@ -68,8 +68,8 @@ end
 
 function CharacterStrip:draw()
 
-  love.graphics.stencil(function() self.stencilFunc(self) end) 
-  love.graphics.setStencilTest("greater", 0)
+  love.graphics.stencil( self.stencilFunc )
+  love.graphics.setStencilTest( "greater", 0 )
 
   for i, offset in ipairs(colorSpacing) do
     love.graphics.setColor( self:getColor((i-1) / (#colorSpacing-1)) )

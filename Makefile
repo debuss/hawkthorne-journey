@@ -7,7 +7,9 @@ ifeq ($(UNAME), Darwin)
   LOVE = bin/love.app/Contents/MacOS/love
 else
   TMXTAR = tmx2lua.linux.tar
-  LOVE = /usr/bin/love
+  # LOVE = /usr/bin/love
+  # On my computer, this path, feel free to change for setup
+  LOVE = /usr/local/bin/love
 endif
 
 ifeq ($(shell which wget),)

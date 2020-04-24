@@ -1,9 +1,9 @@
 local utils = require 'utils'
 local app = require 'app'
 
-function love.errhand(msg)
-  app:errhand(msg)
-end
+--function love.errhand(msg)
+--  app:errhand(msg)
+--end
 
 function love.releaseerrhand(msg)
   app:releaseerrhand(msg)
@@ -51,7 +51,7 @@ function love.load(arg)
 
   if major ~= 0 or
      minor ~= 10 then
-    error("Love 0.10.0 is required")
+    --error("Love 0.10.0 is required")
   end
 
   -- The Mavericks builds of Love adds too many arguments
